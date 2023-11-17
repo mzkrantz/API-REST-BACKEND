@@ -18,24 +18,13 @@ exports.obtenerProfesores = async function (req, res, next) {
 exports.obtenerProfesoresPorCorreo = async function (req, res, next) {
   var page = req.query.page ? req.query.page : 1;
   var limit = req.query.limit ? req.query.limit : 10;
-  let filtro = { email: req.body.email };
+  let filtro = { email: req.headers.email };
 
   try {
     var profesores = await ProfesorService.obtenerProfesores(filtro, page, limit);
     return res.status(200).json({ status: 200, data: profesores, message: "Profesores recibidos exitosamente" });
   } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
-  }
-};
-
-exports.obtenerProfesorPorUsuario = async function (req, res, next) {
-  let userId = req.params.userId;
-
-  try {
-    var profesor = await ProfesorService.obtenerProfesorPorUsuario(userId);
-    return res.status(200).json({ status: 200, data: profesor, message: "Profesor recibido exitosamente" });
-  } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
+    return res.status(400).json({ status: 400, message: e.smessage });
   }
 };
 

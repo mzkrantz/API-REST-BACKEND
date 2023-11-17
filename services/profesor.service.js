@@ -4,23 +4,12 @@ const bcrypt = require('bcryptjs');
 // Obtener la lista de profesores paginada
 exports.obtenerProfesores = async function (query, page, limit) {
   try {
-    var profesores = await Profesor.paginate(query, { page, limit });
+    var profesores = await Profesor.findOne({ email: query.email });
     return profesores;
   } catch (e) {
     throw Error('Error al obtener los profesores');
   }
 };
-
-// Obtener un profesor por userId
-exports.obtenerProfesorPorUsuario = async function (userId) {
-  try {
-    var profesor = await Profesor.findOne({ userId: userId });
-    return profesor;
-  } catch (e) {
-    throw Error('Error al obtener el profesor');
-  }
-};
-
 
 // Crear un nuevo profesor
 exports.crearProfesor = async function (profesor) {
