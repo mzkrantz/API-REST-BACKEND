@@ -1,15 +1,17 @@
-var mongoose = require('mongoose')
-var mongoosePaginate = require('mongoose-paginate')
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate');
 
-
-var UserSchema = new mongoose.Schema({
-    name: String,
+const UserSchema = new Schema({
+    nombre: String,
+    apellido: String,
     email: String,
+    telefono: String,
     password: String,
-    date: Date
-})
+    profesor: { type: Schema.Types.ObjectId, ref: 'Profesor' }
+});
 
-UserSchema.plugin(mongoosePaginate)
-const User = mongoose.model('User', UserSchema)
+UserSchema.plugin(mongoosePaginate);
+var User = mongoose.model('User', UserSchema);
 
 module.exports = User;

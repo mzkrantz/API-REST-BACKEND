@@ -11,7 +11,7 @@ const ProfesorSchema = new mongoose.Schema({
   description: { type: String },
   background: { type: String },
   courseId: { type: String },
-  userId: { type: String },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 ProfesorSchema.plugin(mongoosePaginate);

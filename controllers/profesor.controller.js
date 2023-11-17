@@ -3,6 +3,7 @@ var ProfesorService = require('../services/profesor.service.js');
 _this = this;
 
 exports.obtenerProfesores = async function (req, res, next) {
+  var query = {}; // Puedes ajustar esto según tus necesidades
   var page = req.query.page ? req.query.page : 1;
   var limit = req.query.limit ? req.query.limit : 10;
 
@@ -22,6 +23,17 @@ exports.obtenerProfesoresPorCorreo = async function (req, res, next) {
   try {
     var profesores = await ProfesorService.obtenerProfesores(filtro, page, limit);
     return res.status(200).json({ status: 200, data: profesores, message: "Profesores recibidos exitosamente" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
+exports.obtenerProfesorPorUsuario = async function (req, res, next) {
+  let userId = req.params.userId;
+
+  try {
+    var profesor = await ProfesorService.obtenerProfesorPorUsuario(userId);
+    return res.status(200).json({ status: 200, data: profesor, message: "Profesor recibido exitosamente" });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }

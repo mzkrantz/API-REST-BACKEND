@@ -2,18 +2,25 @@ const Profesor = require('../models/profesor.model.js');
 const bcrypt = require('bcryptjs');
 
 // Obtener la lista de profesores paginada
-exports.obtenerProfesores = async function (req, res, next) {
-  var query = {}; // Puedes ajustar esto según tus necesidades
-  var page = req.query.page ? req.query.page : 1;
-  var limit = req.query.limit ? req.query.limit : 10;
-
+exports.obtenerProfesores = async function (query, page, limit) {
   try {
     var profesores = await Profesor.paginate(query, { page, limit });
-    return res.status(200).json({ status: 200, data: profesores, message: "Profesores obtenidos exitosamente" });
+    return profesores;
   } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
+    throw Error('Error al obtener los profesores');
   }
 };
+
+// Obtener un profesor por userId
+exports.obtenerProfesorPorUsuario = async function (userId) {
+  try {
+    var profesor = await Profesor.findOne({ userId: userId });
+    return profesor;
+  } catch (e) {
+    throw Error('Error al obtener el profesor');
+  }
+};
+
 
 // Crear un nuevo profesor
 exports.crearProfesor = async function (profesor) {
