@@ -37,28 +37,32 @@ exports.crearProfesor = async function (profesor) {
 };
 
 // Actualizar un profesor
-exports.actualizarProfesor = async function (req, res, next) {
-  var profesorData = req.body;
-  var id = { name: profesorData.name };
+exports.actualizarProfesor = async function (profesorData) {
+  var email = { email: profesorData.email };
 
   try {
-    var oldProfesor = await Profesor.findOne(id);
+    var oldProfesor = await Profesor.findOne(email);
   } catch (e) {
-    return res.status(400).json({ status: 400, message: "Error al encontrar el profesor" });
+    throw new Error("Error al encontrar el profesor");
   }
 
   if (!oldProfesor) {
-    return res.status(404).json({ status: 404, message: "Profesor no encontrado" });
+    throw new Error("Profesor no encontrado");
   }
 
-  var hashedPassword = bcrypt.hashSync(profesorData.password, 8);
-  oldProfesor.set(profesorData);
+  // Verificar si cada campo existe antes de establecerlo
+  if (profesorData.name) oldProfesor.name = profesorData.name;
+  if (profesorData.subject) oldProfesor.subject = profesorData.subject;
+  if (profesorData.age) oldProfesor.age = profesorData.age;
+  if (profesorData.phone) oldProfesor.phone = profesorData.phone;
+  if (profesorData.description) oldProfesor.description = profesorData.description;
+  if (profesorData.background) oldProfesor.background = profesorData.background;
 
   try {
     var profesorActualizado = await oldProfesor.save();
-    return res.status(200).json({ status: 200, data: profesorActualizado, message: "Profesor actualizado exitosamente" });
+    return profesorActualizado;
   } catch (e) {
-    return res.status(400).json({ status: 400, message: "Error al actualizar el profesor" });
+    throw new Error("Error al actualizar el profesor: " + e.message);
   }
 };
 

@@ -53,23 +53,20 @@ exports.crearProfesor = async function (req, res, next) {
 };
 
 exports.actualizarProfesor = async function (req, res, next) {
-  if (!req.body.name) {
-    return res.status(400).json({ status: 400, message: "El nombre debe estar presente" });
-  }
 
-  var profesor = {
-    name: req.body.name ? req.body.name : null,
-    subject: req.body.subject ? req.body.subject : null,
-    age: req.body.age ? req.body.age : null,
-    email: req.body.email ? req.body.email : null,
-    phone: req.body.phone ? req.body.phone : null,
-    image: req.body.image ? req.body.image : null,
-    description: req.body.description ? req.body.description : null,
-    background: req.body.background ? req.body.background : null,
-    courseId: req.body.courseId ? req.body.courseId : null,
-    userId: req.body.userId ? req.body.userId : null,
-  };
+  var profesor = {};
 
+  if (req.body.name) profesor.name = req.body.name;
+  if (req.body.subject) profesor.subject = req.body.subject;
+  if (req.body.age) profesor.age = req.body.age;
+  if (req.body.email) profesor.email = req.body.email;
+  if (req.body.phone) profesor.phone = req.body.phone;
+  if (req.body.image) profesor.image = req.body.image;
+  if (req.body.description) profesor.description = req.body.description;
+  if (req.body.background) profesor.background = req.body.background;
+  if (req.body.courseId) profesor.courseId = req.body.courseId;
+  if (req.body.userId) profesor.userId = req.body.userId;
+  
   try {
     var profesorActualizado = await ProfesorService.actualizarProfesor(profesor);
     return res.status(200).json({ status: 200, data: profesorActualizado, message: "Profesor actualizado exitosamente" });
