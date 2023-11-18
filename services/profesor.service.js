@@ -16,6 +16,7 @@ exports.crearProfesor = async function (profesor) {
   
   var nuevoProfesor = new Profesor({
     name: profesor.name,
+    lastName: profesor.lastName,
     subject: profesor.subject,
     age: profesor.age,
     email: profesor.email,

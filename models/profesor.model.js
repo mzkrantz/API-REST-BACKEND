@@ -3,6 +3,7 @@ const mongoosePaginate = require('mongoose-paginate');
 
 const ProfesorSchema = new mongoose.Schema({
   name: { type: String },
+  lastName: { type: String },
   subject: { type: String },
   age: { type: Number },
   email: { type: String },
