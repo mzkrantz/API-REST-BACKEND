@@ -16,7 +16,7 @@ exports.getAllCursos = async function (req, res, next) {
 // Crear un nuevo curso
 exports.createCurso = async function (req, res, next) {
   const cursoData = {
-    id: req.body.id,
+    
     image: req.body.image,
     title: req.body.title,
     description: req.body.description,
@@ -41,14 +41,15 @@ exports.createCurso = async function (req, res, next) {
   }
 };
 
-// Obtener un curso por ID
-exports.getCursoById = async function (req, res, next) {
-  const cursoId = req.params.id;
+// Obtener todos los cursos por ID de profesor
+exports.getCursosByProfesorId = async function (req, res, next) {
+  const profesorId = req.params.id;
 
   try {
-    const curso = await CursosService.getCursoById(cursoId);
-    return res.status(200).json(curso);
+    const cursos = await CursosService.getCursosByProfesorId(profesorId);
+    return res.status(200).json(cursos);
   } catch (e) {
+    console.error(e); // Imprime el error original
     return res.status(400).json({ status: 400, message: e.message });
   }
 };

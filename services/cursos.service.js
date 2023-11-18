@@ -1,5 +1,5 @@
-// Obtener el modelo Mongoose recién creado
 var Cursos = require('../models/cursos.model');
+var mongoose = require('mongoose');
 
 // Guardar el contexto de este módulo dentro de la variable _this
 _this = this;
@@ -39,15 +39,19 @@ exports.createCurso = async function (curso) {
   }
 }
 
-exports.getCursoById = async function (id) {
-  try {
-    // Encuentra el objeto de curso por ID
-    var curso = await Cursos.findById(id);
-    return curso;
-  } catch (e) {
-    throw Error("Error al buscar el curso");
+exports.getCursosByProfesorId = async function(profesorId) {
+  if (!mongoose.Types.ObjectId.isValid(profesorId)) {
+    throw Error('ID de profesor no válido');
   }
-}
+
+  try {
+    const cursos = await Cursos.find({ teacher: profesorId });
+    return cursos;
+  } catch (e) {
+    console.error(e); // Imprime el error original
+    throw Error('Error al obtener los cursos por ID de profesor');
+  }
+};
 
 exports.updateCurso = async function (id, curso) {
   try {
@@ -60,9 +64,20 @@ exports.updateCurso = async function (id, curso) {
 }
 
 exports.deleteCurso = async function (id) {
+  // Busca el curso
+  try {
+    var curso = await Cursos.findById(id);
+    if (!curso) {
+      throw Error("Curso no encontrado");
+    }
+  } catch (e) {
+    throw Error("Error al buscar el curso");
+  }
+
   // Elimina el curso
   try {
-    var deleted = await Cursos.findByIdAndRemove(id);
+    var deleted = await curso.remove();
+    console.log("deleted", deleted);
     return deleted;
   } catch (e) {
     throw Error("Error al eliminar el curso");

@@ -4,7 +4,7 @@ var mongoosePaginate = require('mongoose-paginate')
 
 // Definir un esquema para los cursos
 var CursosSchema = new mongoose.Schema({
-    id: Number,
+   
     image: String,
     title: String,
     description: String,
@@ -17,7 +17,7 @@ var CursosSchema = new mongoose.Schema({
     subjects: [String],
     stars: String,
     type: String,
-    teacher: Number,
+    teacher: mongoose.Schema.Types.ObjectId,
     published: Boolean
   });
 

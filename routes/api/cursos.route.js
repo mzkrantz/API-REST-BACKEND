@@ -10,7 +10,7 @@ router.get('/', CursosController.getAllCursos);
 router.post('/', Authorization, CursosController.createCurso);
 
 // Obtener un curso por ID
-router.get('/:id', CursosController.getCursoById);
+router.get('/:id', CursosController.getCursosByProfesorId);
 
 // Actualizar un curso por ID
 router.put('/:id', Authorization, CursosController.updateCurso);
