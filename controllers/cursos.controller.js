@@ -57,23 +57,7 @@ exports.getCursosByProfesorId = async function (req, res, next) {
 // Actualizar un curso por ID
 exports.updateCurso = async function (req, res, next) {
   const cursoId = req.params.id;
-  const updatedCursoData = {
-    id: req.body.id,
-    image: req.body.image,
-    title: req.body.title,
-    description: req.body.description,
-    duration: req.body.duration,
-    frequency: req.body.frequency,
-    price: req.body.price,
-    buttonLink: req.body.buttonLink,
-    category: req.body.category,
-    extendedDescription: req.body.extendedDescription,
-    subjects: req.body.subjects,
-    stars: req.body.stars,
-    type: req.body.type,
-    teacher: req.body.teacher,
-    published: req.body.published,
-  };
+  const updatedCursoData = req.body;
 
   try {
     const updatedCurso = await CursosService.updateCurso(cursoId, updatedCursoData);

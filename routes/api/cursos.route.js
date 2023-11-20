@@ -13,7 +13,7 @@ router.post('/', Authorization, CursosController.createCurso);
 router.get('/:id', CursosController.getCursosByProfesorId);
 
 // Actualizar un curso por ID
-router.put('/:id', Authorization, CursosController.updateCurso);
+router.patch('/:id', Authorization, CursosController.updateCurso);
 
 // Eliminar un curso por ID
 router.delete('/:id', Authorization, CursosController.deleteCurso);

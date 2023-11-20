@@ -83,3 +83,12 @@ exports.eliminarProfesor = async function (req, res, next) {
     return res.status(400).json({ status: 400, message: "Error al eliminar el profesor" });
   }
 };
+
+exports.obtenerProfesorPorId = async function (id) {
+  try {
+    var profesor = await Profesor.findById(id);
+    return profesor;
+  } catch (e) {
+    throw Error("Error al obtener el profesor");
+  }
+};

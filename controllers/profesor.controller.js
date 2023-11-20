@@ -28,6 +28,18 @@ exports.obtenerProfesoresPorCorreo = async function (req, res, next) {
   }
 };
 
+exports.obtenerProfesorPorId = async function (req, res, next) {
+  try {
+    var profesor = await ProfesorService.obtenerProfesorPorId(req.params.id);
+    if (!profesor) {
+      return res.status(404).json({ status: 404, message: "Profesor no encontrado" });
+    }
+    return res.status(200).json({ status: 200, data: profesor, message: "Profesor recibido exitosamente" });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
 exports.crearProfesor = async function (req, res, next) {
   
   var profesor = {

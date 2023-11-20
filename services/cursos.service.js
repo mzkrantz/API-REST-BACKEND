@@ -53,10 +53,10 @@ exports.getCursosByProfesorId = async function(profesorId) {
   }
 };
 
-exports.updateCurso = async function (id, curso) {
+exports.updateCurso = async function (id, cursoData) {
   try {
     // Encuentra el objeto de curso antiguo por el ID
-    var oldCurso = await Cursos.findByIdAndUpdate(id, curso, { new: true });
+    var oldCurso = await Cursos.findByIdAndUpdate(id, { $set: cursoData }, { new: true });
     return oldCurso;
   } catch (e) {
     throw Error("Error al actualizar el curso");

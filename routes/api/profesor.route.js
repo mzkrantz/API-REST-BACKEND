@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/registro', ProfesorController.crearProfesor);
 router.get('/profesores', Authorization, ProfesorController.obtenerProfesores);
 router.get('/profesorPorCorreo', Authorization, ProfesorController.obtenerProfesoresPorCorreo);
+router.get('/profesor/:id', ProfesorController.obtenerProfesorPorId);
 router.put('/actualizar', Authorization, ProfesorController.actualizarProfesor);
 router.delete('/eliminar', Authorization, ProfesorController.eliminarProfesor);
 
