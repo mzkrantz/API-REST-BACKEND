@@ -2,8 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ComentarioSchema = new Schema({
-  contenido: { type: String, required: true },
-  curso: { type: Schema.Types.ObjectId, ref: 'Curso', required: true },
+  nombre: { type: String, },
+  comentario: { type: String},
+  cursoId: { type: Schema.Types.ObjectId},
 });
 
 module.exports = mongoose.model('Comentario', ComentarioSchema);

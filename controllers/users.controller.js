@@ -38,6 +38,10 @@ exports.createUser = async function (req, res, next) {
       lastName: req.body.apellido,
       email: req.body.email,
       phone: req.body.telefono,
+      subject: req.body.materia,
+      age: req.body.edad,
+      description: req.body.descripcion,
+      background: req.body.experiencia,
       userId: userId,
     };
 

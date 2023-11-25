@@ -1,4 +1,6 @@
+const cloudinary = require('../services/cloudinary');
 const CursosService = require('../services/cursos.service');
+
 
 // Obtener todos los cursos
 exports.getAllCursos = async function (req, res, next) {
@@ -15,9 +17,18 @@ exports.getAllCursos = async function (req, res, next) {
 
 // Crear un nuevo curso
 exports.createCurso = async function (req, res, next) {
+
+  
+
+  const fileBuffer = req.file.buffer;
+
+  try{
+    const urlImg = await cloudinary.uploadImage(fileBuffer);
+    
+  
   const cursoData = {
     
-    image: req.body.image,
+    image: urlImg,
     title: req.body.title,
     description: req.body.description,
     duration: req.body.duration,
@@ -30,10 +41,9 @@ exports.createCurso = async function (req, res, next) {
     stars: req.body.stars,
     type: req.body.type,
     teacher: req.body.teacher,
-    published: req.body.published,
+    published: req.body.published,  
   };
-
-  try {
+  
     const createdCurso = await CursosService.createCurso(cursoData);
     return res.status(201).json({ createdCurso, message: "Curso creado exitosamente" });
   } catch (e) {

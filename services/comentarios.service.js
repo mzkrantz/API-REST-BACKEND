@@ -1,7 +1,12 @@
 var Comentario = require('../models/comentario.model');
 
 exports.createComentario = function(comentarioData) {
-  var comentario = new Comentario(comentarioData);
+
+  var comentario = new Comentario({
+    nombre: comentarioData.nombre,
+    comentario: comentarioData.comentario,
+    cursoId: comentarioData.idCurso,
+  });
   return comentario.save();
 };
 
