@@ -22,6 +22,7 @@ exports.createUser = async function (user) {
     var hashedPassword = bcrypt.hashSync(user.password, 8);
     
     var newUser = new User({
+        imafe: user.image,
         nombre: user.nombre,
         apellido: user.apellido,
         email: user.email,

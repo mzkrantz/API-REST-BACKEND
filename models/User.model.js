@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 var mongoosePaginate = require('mongoose-paginate');
 
 const UserSchema = new Schema({
+    image: String,
     nombre: String,
     apellido: String,
     email: String,

@@ -6,6 +6,7 @@ exports.createComentario = function(comentarioData) {
     nombre: comentarioData.nombre,
     comentario: comentarioData.comentario,
     cursoId: comentarioData.idCurso,
+    calificacion: comentarioData.calificacion,
   });
   return comentario.save();
 };

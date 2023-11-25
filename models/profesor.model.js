@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
 const ProfesorSchema = new mongoose.Schema({
+  image: { type: String },
   name: { type: String },
   lastName: { type: String },
   subject: { type: String },

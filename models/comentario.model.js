@@ -5,6 +5,7 @@ var ComentarioSchema = new Schema({
   nombre: { type: String, },
   comentario: { type: String},
   cursoId: { type: Schema.Types.ObjectId},
+  calificacion: { type: Number},
 });
 
 module.exports = mongoose.model('Comentario', ComentarioSchema);

@@ -15,6 +15,7 @@ exports.obtenerProfesores = async function (query, page, limit) {
 exports.crearProfesor = async function (profesor) {
   
   var nuevoProfesor = new Profesor({
+    image: profesor.image,
     name: profesor.name,
     lastName: profesor.lastName,
     subject: profesor.subject,

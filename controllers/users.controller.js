@@ -1,6 +1,7 @@
 var UserService = require("../services/user.service");
 var ProfesorService = require("../services/profesor.service");
 var jwt = require('jsonwebtoken');
+const cloudinary = require('../services/cloudinary');
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -8,7 +9,12 @@ _this = this;
 // Async Controller function to get the To do List
 exports.createUser = async function (req, res, next) {
 
+  const fileBuffer = req.file.buffer;
+
+  const urlImg = await cloudinary.uploadImage(fileBuffer);
+
   var newUser = {
+    image: urlImg,
     nombre: req.body.nombre,
     apellido: req.body.apellido,
     email: req.body.email,
@@ -34,6 +40,7 @@ exports.createUser = async function (req, res, next) {
     
 
     var newProfesor = {
+      image: urlImg,
       name: req.body.nombre,
       lastName: req.body.apellido,
       email: req.body.email,
