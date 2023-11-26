@@ -20,8 +20,19 @@ exports.getComentariosByCursoId = function(req, res) {
     });
 };
 
+exports.getComentariosByProfesorId = function(req, res) {
+  ComentariosService.getComentariosByProfesorId(req.params.profesorId)
+    .then(function (comentarios) {
+      res.status(200).json(comentarios);
+    })
+    .catch(function (err) {
+      res.status(500).json(err);
+    });
+};
+
+
 exports.updateComentario = function(req, res) {
-  ComentariosService.updateComentario(req.params.id, req.body)
+  ComentariosService.updateComentario(req.params.id)
     .then(function (comentario) {
       res.status(200).json(comentario);
     })
