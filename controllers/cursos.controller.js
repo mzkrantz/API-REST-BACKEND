@@ -1,15 +1,18 @@
-const cloudinary = require('../services/cloudinary');
-const CursosService = require('../services/cursos.service');
-
+const cloudinary = require("../services/cloudinary");
+const CursosService = require("../services/cursos.service");
 
 // Obtener todos los cursos
 exports.getAllCursos = async function (req, res, next) {
   const page = req.query.page ? req.query.page : 1;
   const limit = req.query.limit ? req.query.limit : 10;
-  
+
   try {
     const cursos = await CursosService.getCursos({}, page, limit);
-    return res.status(200).json({ status: 200, data: cursos, message: "Cursos recibidos exitosamente" });
+    return res.status(200).json({
+      status: 200,
+      data: cursos,
+      message: "Cursos recibidos exitosamente",
+    });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }
@@ -17,37 +20,51 @@ exports.getAllCursos = async function (req, res, next) {
 
 // Crear un nuevo curso
 exports.createCurso = async function (req, res, next) {
-
-  
-
   const fileBuffer = req.file.buffer;
 
-  try{
+  try {
     const urlImg = await cloudinary.uploadImage(fileBuffer);
+    let subjectsArray = req.body.subjects;
+
+    // Intenta parsear el string JSON. Si tiene éxito, asigna el resultado a subjectsArray.
+    try {
+      subjectsArray = JSON.parse(subjectsArray);
+    } catch (error) {
+      // Si hay un error al parsear, asume que ya es un array o realiza otra lógica según sea necesario.
+      console.error("Error parsing subjects:", error);
+    }
+
+    // Asegúrate de que subjectsArray sea un array de strings.
+    if (!Array.isArray(subjectsArray)) {
+      // Si no es un array, intenta dividir el string por comas y eliminar espacios en blanco.
+      subjectsArray = subjectsArray.split(",").map((subject) => subject.trim());
+    }
     
-  
-  const cursoData = {
-    
-    image: urlImg,
-    title: req.body.title,
-    description: req.body.description,
-    duration: req.body.duration,
-    frequency: req.body.frequency,
-    price: req.body.price,
-    buttonLink: req.body.buttonLink,
-    category: req.body.category,
-    extendedDescription: req.body.extendedDescription,
-    subjects: req.body.subjects,
-    stars: req.body.stars,
-    type: req.body.type,
-    teacher: req.body.teacher,
-    published: req.body.published,  
-  };
-  
+    const cursoData = {
+      image: urlImg,
+      title: req.body.title,
+      description: req.body.description,
+      duration: req.body.duration,
+      frequency: req.body.frequency,
+      price: req.body.price,
+      buttonLink: req.body.buttonLink,
+      category: req.body.category,
+      extendedDescription: req.body.extendedDescription,
+      subjects: subjectsArray,
+      stars: req.body.stars,
+      type: req.body.type,
+      teacher: req.body.teacher,
+      published: req.body.published,
+    };
+
     const createdCurso = await CursosService.createCurso(cursoData);
-    return res.status(201).json({ createdCurso, message: "Curso creado exitosamente" });
+    return res
+      .status(201)
+      .json({ createdCurso, message: "Curso creado exitosamente" });
   } catch (e) {
-    return res.status(400).json({ status: 400, message: "La creación del curso fue infructuosa" });
+    return res
+      .status(400)
+      .json({ status: 400, message: "La creación del curso fue infructuosa" });
   }
 };
 
@@ -70,8 +87,15 @@ exports.updateCurso = async function (req, res, next) {
   const updatedCursoData = req.body;
 
   try {
-    const updatedCurso = await CursosService.updateCurso(cursoId, updatedCursoData);
-    return res.status(200).json({ status: 200, data: updatedCurso, message: "Curso actualizado exitosamente" });
+    const updatedCurso = await CursosService.updateCurso(
+      cursoId,
+      updatedCursoData
+    );
+    return res.status(200).json({
+      status: 200,
+      data: updatedCurso,
+      message: "Curso actualizado exitosamente",
+    });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }
