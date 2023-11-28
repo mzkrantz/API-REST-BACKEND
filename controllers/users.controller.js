@@ -1,44 +1,62 @@
 var UserService = require("../services/user.service");
 var ProfesorService = require("../services/profesor.service");
-var jwt = require('jsonwebtoken');
-const cloudinary = require('../services/cloudinary');
+var jwt = require("jsonwebtoken");
+const cloudinary = require("../services/cloudinary");
 
 // Saving the context of this module inside the _the variable
 _this = this;
 
 // Async Controller function to get the To do List
 exports.createUser = async function (req, res, next) {
-
-  const fileBuffer = req.file.buffer;
-
-  const urlImg = await cloudinary.uploadImage(fileBuffer);
-
-  var newUser = {
-    image: urlImg,
-    nombre: req.body.nombre,
-    apellido: req.body.apellido,
-    email: req.body.email,
-    telefono: req.body.telefono,
-    password: req.body.password,
-    
-  };
-
-  
-
   try {
+    // Verificar si el correo electrónico ya existe
+    const emailExists = await UserService.verificarEmailExistente(
+      req.body.email
+    );
+    if (emailExists) {
+      return res
+        .status(400)
+        .json({
+          status: 400,
+          message: "El correo electrónico ya existe en la base de datos",
+        });
+    }
+
+    // Subir la imagen a Cloudinary
+    const fileBuffer = req.file.buffer;
+    const urlImg = await cloudinary.uploadImage(fileBuffer);
+
+    // Crear un nuevo usuario
+    var newUser = {
+      image: urlImg,
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      email: req.body.email,
+      telefono: req.body.telefono,
+      password: req.body.password,
+    };
+
     var createdUser = await UserService.createUser(newUser);
 
+    // Obtener el token del usuario creado
     var token = createdUser;
-    if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
-  
+    if (!token)
+      return res
+        .status(401)
+        .send({ auth: false, message: "No se proporcionó un token." });
+
     var userId;
-  
-    jwt.verify(token, process.env.SECRET, function(err, decoded) {
-      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+
+    // Verificar el token
+    jwt.verify(token, process.env.SECRET, function (err, decoded) {
+      if (err)
+        return res
+          .status(500)
+          .send({ auth: false, message: "Fallo al autenticar el token." });
       userId = decoded.id;
     });
-    
 
+    // Crear un nuevo profesor asociado al usuario
     var newProfesor = {
       image: urlImg,
       name: req.body.nombre,
@@ -54,19 +72,15 @@ exports.createUser = async function (req, res, next) {
 
     await ProfesorService.crearProfesor(newProfesor);
 
-    return res
-      .status(201)
-      .json({
-        token: createdUser,
-        message: "Succesfully Created User and Profesor",
-      });
+    return res.status(201).json({
+      token: createdUser,
+      message: "Usuario y Profesor creados exitosamente",
+    });
   } catch (e) {
-    return res
-      .status(400)
-      .json({
-        status: 400,
-        message: "User and Profesor Creation was Unsuccesfull",
-      });
+    return res.status(400).json({
+      status: 400,
+      message: "La creación de usuario y profesor no fue exitosa",
+    });
   }
 };
 
@@ -75,13 +89,11 @@ exports.getUsers = async function (req, res, next) {
   var limit = req.query.limit ? req.query.limit : 10;
   try {
     var Users = await UserService.getUsers({}, page, limit);
-    return res
-      .status(200)
-      .json({
-        status: 200,
-        data: Users,
-        message: "Succesfully Users Recieved",
-      });
+    return res.status(200).json({
+      status: 200,
+      data: Users,
+      message: "Succesfully Users Recieved",
+    });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }
@@ -94,13 +106,11 @@ exports.getUsersByMail = async function (req, res, next) {
   console.log(filtro);
   try {
     var Users = await UserService.getUsers(filtro, page, limit);
-    return res
-      .status(200)
-      .json({
-        status: 200,
-        data: Users,
-        message: "Succesfully Users Recieved",
-      });
+    return res.status(200).json({
+      status: 200,
+      data: Users,
+      message: "Succesfully Users Recieved",
+    });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }
@@ -127,13 +137,11 @@ exports.updateUser = async function (req, res, next) {
 
   try {
     var updatedUser = await UserService.updateUser(user);
-    return res
-      .status(200)
-      .json({
-        status: 200,
-        data: updatedUser,
-        message: "Succesfully Updated User",
-      });
+    return res.status(200).json({
+      status: 200,
+      data: updatedUser,
+      message: "Succesfully Updated User",
+    });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }
