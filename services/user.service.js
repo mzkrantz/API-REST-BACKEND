@@ -18,6 +18,15 @@ exports.getUsers = async function (query, page, limit) {
     }
 }
 
+exports.verificarEmailExistente = async function (email) {
+    try {
+        var existingUser = await User.findOne({ email: email });
+        return existingUser !== null;
+    } catch (e) {
+        throw Error("Error while checking existing email");
+    }
+};
+
 exports.createUser = async function (user) {
     var hashedPassword = bcrypt.hashSync(user.password, 8);
     
