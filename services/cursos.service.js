@@ -54,17 +54,30 @@ exports.getCursosByProfesorId = async function (profesorId) {
 
 exports.updateCurso = async function (id, cursoData) {
   try {
-    // Encuentra el objeto de curso antiguo por el ID
-    var oldCurso = await Cursos.findByIdAndUpdate(
-      id,
+    // Verifica si el curso con el ID proporcionado existe antes de intentar actualizar
+    const existingCurso = await Cursos.findById(id);
+    if (!existingCurso) {
+      throw new Error("Curso no encontrado");
+    }
+
+    // Actualiza el curso y devuelve el documento actualizado
+    const updatedCurso = await Cursos.findOneAndUpdate(
+      { _id: id },
       { $set: cursoData },
       { new: true }
     );
-    return oldCurso;
+
+    if (!updatedCurso) {
+      throw new Error("Error al actualizar el curso");
+    }
+
+    return updatedCurso;
   } catch (e) {
-    throw Error("Error al actualizar el curso");
+    console.error(e);
+    throw e; // Lanza el error original para que pueda ser manejado en el nivel superior
   }
 };
+
 
 exports.deleteCurso = async function (id) {
   // Busca el curso
