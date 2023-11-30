@@ -116,7 +116,6 @@ exports.deleteCurso = async function (req, res, next) {
 // Actualizar la imagen del curso por ID
 
 exports.updateCursoImage = async function (req, res, next) {
-  console.log("req.file:", req.file); // Añade esta línea
 
   const cursoId = req.params.id;
   const fileBuffer = req.file.buffer;
@@ -124,7 +123,6 @@ exports.updateCursoImage = async function (req, res, next) {
   try {
     // Subir la imagen a Cloudinary
     const result = await cloudinary.uploadImage(fileBuffer);
-    console.log("Resultado de cloudinary.uploadImage:", result); // Añade esta línea
 
     // Actualizar la URL de la imagen en la base de datos
     const updatedCurso = await CursosService.updateCursoImage(
