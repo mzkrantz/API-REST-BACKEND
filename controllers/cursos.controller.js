@@ -112,3 +112,33 @@ exports.deleteCurso = async function (req, res, next) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+
+// Actualizar la imagen del curso por ID
+
+exports.updateCursoImage = async function (req, res, next) {
+  console.log("req.file:", req.file); // Añade esta línea
+
+  const cursoId = req.params.id;
+  const fileBuffer = req.file.buffer;
+
+  try {
+    // Subir la imagen a Cloudinary
+    const result = await cloudinary.uploadImage(fileBuffer);
+    console.log("Resultado de cloudinary.uploadImage:", result); // Añade esta línea
+
+    // Actualizar la URL de la imagen en la base de datos
+    const updatedCurso = await CursosService.updateCursoImage(
+      cursoId,
+      result
+    );
+
+    return res.status(200).json({
+      status: 200,
+      data: updatedCurso,
+      message: "Imagen del curso actualizada exitosamente",
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+

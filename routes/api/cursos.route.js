@@ -21,4 +21,8 @@ router.patch('/:id', Authorization, CursosController.updateCurso);
 // Eliminar un curso por ID
 router.delete('/:id', Authorization, CursosController.deleteCurso);
 
+// Actualizar la imagen de un curso por ID
+router.patch('/:id/image', Authorization, upload.single('image'), CursosController.updateCursoImage);
+
+
 module.exports = router;

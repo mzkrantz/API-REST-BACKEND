@@ -99,3 +99,29 @@ exports.deleteCurso = async function (id) {
     throw Error("Error al eliminar el curso");
   }
 };
+
+exports.updateCursoImage = async function (id, image) {
+  try {
+    // Verifica si el curso con el ID proporcionado existe antes de intentar actualizar
+    const existingCurso = await Cursos.findById(id);
+    if (!existingCurso) {
+      throw new Error("Curso no encontrado");
+    }
+
+    // Actualiza el curso y devuelve el documento actualizado
+    const updatedCurso = await Cursos.findOneAndUpdate(
+      { _id: id },
+      { $set: { image: image } },
+      { new: true }
+    );
+
+    if (!updatedCurso) {
+      throw new Error("Error al actualizar la imagen del curso");
+    }
+
+    return updatedCurso;
+  } catch (e) {
+    console.error(e);
+    throw e; // Lanza el error original para que pueda ser manejado en el nivel superior
+  }
+};
