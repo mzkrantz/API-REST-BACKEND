@@ -158,7 +158,8 @@ exports.actualizarContraseña = async function (userId, newPassword) {
       throw Error("Usuario no encontrado");
     }
 
-    user.password = newPassword;
+    var hashedPassword = bcrypt.hashSync(newPassword, 8);
+    user.password = hashedPassword;
 
     var updatedUser = await user.save();
     return updatedUser;
