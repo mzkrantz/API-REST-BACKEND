@@ -1,35 +1,39 @@
 const nodemailer = require("nodemailer");
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-    user: "eduwizard2023@gmail.com",
-    pass: "rsxxyaebgxbmwekx",
-  },
-});
-
-// async..await is not allowed in global scope, must use a wrapper
-async function main() {
-  // send mail with defined transport object
-  const info = await transporter.sendMail({
-    from: 'eduwizard2023@gmail.com', // sender address
-    to: "safemendez@gmail.com", // list of receivers
-    subject: "mail de nico", // Subject line
-    text: "Mail de nico", // plain text body
-    html: "<b>SI estas viendo esto es porque llega bien</b>", // html body
+const mailSender = async (to, subject, text) => {
+  const transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "eduwizard2023@outlook.com",
+      pass: "Adminwizard123+",
+    },
   });
 
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  const mailOptions = {
+    from: "eduwizard2023@outlook.com", // Cambia esto al remitente que desees
+    to: to,
+    subject: subject,
+    text: text,
+    html: `
+      <div style="display: flex; align-items: center;">
+        <h2 style="color: #333;">EDUWIZARD</h2>
+      </div>
+      <h2 style="color: #333;">${subject}</h2>
+      <p>${text}</p>
+      <p style="color: #888; font-size: 12px;">Este correo fue enviado desde EDUWIZARD.</p>
+    `,
+  };
 
-  //
-  // NOTE: You can go to https://forwardemail.net/my-account/emails to see your email delivery status and preview
-  //       Or you can use the "preview-email" npm package to preview emails locally in browsers and iOS Simulator
-  //       <https://github.com/forwardemail/preview-email>
-  //
-}
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Message sent: %s", info.messageId);
+    return { message: "Success!" };
+  } catch (err) {
+    console.error("Error en el envío:", err);
+    throw new Error(`Error: ${err}`);
+  }
+};
 
-main().catch(console.error);
+module.exports = { mailSender };
