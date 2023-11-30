@@ -1,4 +1,5 @@
 const SolicitudesService = require('../services/solicitudes.service');
+const nodemailer = require('../services/nodemailer');
 
 // Obtener todas las solicitudes
 const getAllSolicitudes = async (req, res) => {
@@ -42,6 +43,7 @@ const updateSolicitud = async (req, res) => {
       res.status(404).json({ message: 'Solicitud no encontrada' });
     } else {
       res.status(200).json(solicitud);
+      
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
