@@ -34,6 +34,8 @@ exports.createUser = async function (req, res, next) {
       email: req.body.email,
       telefono: req.body.telefono,
       password: req.body.password,
+      resetToken:"",
+      resetTokenExpires:"",
     };
 
     var createdUser = await UserService.createUser(newUser);

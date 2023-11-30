@@ -9,7 +9,9 @@ const UserSchema = new Schema({
     email: String,
     telefono: String,
     password: String,
-    profesor: { type: Schema.Types.ObjectId, ref: 'Profesor' }
+    profesor: { type: Schema.Types.ObjectId, ref: 'Profesor' },
+    resetToken: "",
+    resetTokenExpires: "",
 });
 
 UserSchema.plugin(mongoosePaginate);
