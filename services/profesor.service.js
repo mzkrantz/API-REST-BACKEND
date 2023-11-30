@@ -11,6 +11,24 @@ exports.obtenerProfesores = async function (query, page, limit) {
   }
 };
 
+exports.obtenerTodosProfesores = async function (query, page, limit) {
+  // Configuración de opciones para la paginación de Mongoose
+  var options = {
+    page,
+    limit,
+  };
+  // Intenta manejar la promesa esperada para manejar errores
+  try {
+    var profesores = await Profesor.paginate(query, options);
+    // Devuelve la lista de cursos retornada por la promesa de Mongoose
+    return profesores;
+  } catch (e) {
+    // Devuelve un mensaje de error describiendo la razón
+    console.log("Error en servicios", e);
+    throw Error("Error al paginar profesores");
+  }
+};
+
 // Crear un nuevo profesor
 exports.crearProfesor = async function (profesor) {
   

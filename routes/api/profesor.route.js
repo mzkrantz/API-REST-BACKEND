@@ -4,9 +4,7 @@ const ProfesorController = require('../../controllers/profesor.controller');
 const Authorization = require('../../auth/authorization');
 
 // Autorizar cada API con middleware y asignar a las funciones del controlador
-router.get('/', function(req, res, next) {
-  res.send('Llegaste a la ruta de api/profesor.routes');
-});
+router.get('/', ProfesorController.obtenerTodosProfesores);
 
 router.post('/registro', ProfesorController.crearProfesor);
 router.get('/profesores', Authorization, ProfesorController.obtenerProfesores);

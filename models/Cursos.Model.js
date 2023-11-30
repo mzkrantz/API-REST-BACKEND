@@ -15,7 +15,7 @@ var CursosSchema = new mongoose.Schema({
     category: String,
     extendedDescription: String,
     subjects: [String],
-    stars: String,
+    stars: Number,
     type: String,
     teacher: mongoose.Schema.Types.ObjectId,
     published: Boolean
