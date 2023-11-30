@@ -150,3 +150,20 @@ exports.actualizarResetToken = async function (
     throw Error("Error al actualizar el token de restablecimiento");
   }
 };
+
+exports.actualizarContraseña = async function (userId, newPassword) {
+  try {
+    var user = await User.findById(userId);
+    if (!user) {
+      throw Error("Usuario no encontrado");
+    }
+
+    user.password = newPassword;
+
+    var updatedUser = await user.save();
+    return updatedUser;
+  } catch (e) {
+    throw Error("Error al actualizar la contraseña");
+  }
+};
+

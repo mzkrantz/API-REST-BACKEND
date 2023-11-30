@@ -49,7 +49,38 @@ const sendPasswordResetEmail = async (req, res) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  const email = req.body.email;
+  const resetToken = req.body.resetToken;
+  const newPassword = req.body.newPassword;
+  console.log(email);
+
+  try {
+    // Buscar el usuario por correo electrónico
+    const user = await UserService.getUserByEmail(email);
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    // Validar si el token de reinicio coincide con el usuario
+    if (user.resetToken !== resetToken ) {
+      return res.status(400).json({ error: "Token de reinicio inválido o expirado" });
+    }
+
+    // Actualizar la contraseña del usuario
+    await UserService.actualizarContraseña(user._id, newPassword);
+
+    res.json({ message: "Contraseña actualizada exitosamente" });
+  } catch (error) {
+    console.error("Error en el controlador de reinicio de contraseña:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 module.exports = {
   sendEmail,
   sendPasswordResetEmail,
+  resetPassword,
 };
