@@ -181,3 +181,21 @@ exports.loginUser = async function (req, res, next) {
       .json({ status: 400, message: "Invalid username or password" });
   }
 };
+
+exports.getImagenUsuario = async function (req, res, next) {
+  var email = req.params.email;
+
+  try {
+    var user = await UserService.getUserByEmail(email);
+    if (!user) {
+      return res.status(404).json({ status: 404, message: "User not found" });
+    }
+
+    // Aquí puedes implementar la lógica para obtener la imagen del usuario
+    // utilizando el servicio de cloudinary u otro método de tu elección
+
+    return res.status(200).json({ status: 200, message: "User image retrieved successfully", image: user.image });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};

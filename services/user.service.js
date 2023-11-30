@@ -31,7 +31,7 @@ exports.createUser = async function (user) {
     var hashedPassword = bcrypt.hashSync(user.password, 8);
     
     var newUser = new User({
-        imafe: user.image,
+        image: user.image,
         nombre: user.nombre,
         apellido: user.apellido,
         email: user.email,
@@ -114,4 +114,13 @@ exports.loginUser = async function (user) {
         throw Error("Error while Login User")
     }
 
+}
+
+exports.getUserByEmail = async function (email) {
+    try {
+        var user = await User.findOne({ email: email });
+        return user;
+    } catch (e) {
+        throw Error("Error Occurred while Fetching User by Email");
+    }
 }

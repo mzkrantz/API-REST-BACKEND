@@ -16,5 +16,8 @@ router.get('/users',Authorization, UserController.getUsers);
 router.post('/userByMail', Authorization, UserController.getUsersByMail);
 router.put('/update', Authorization, UserController.updateUser);
 router.delete('/delete', Authorization, UserController.removeUser);
+router.get('/obtenerImagenUsuario/:email', Authorization, UserController.getImagenUsuario);
+
+
 
 module.exports = router;
