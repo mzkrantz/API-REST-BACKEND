@@ -1,5 +1,5 @@
-const SolicitudesService = require('../services/solicitudes.service');
-const nodemailer = require('../services/nodemailer');
+const SolicitudesService = require("../services/solicitudes.service");
+const nodemailer = require("../services/nodemailer");
 
 // Obtener todas las solicitudes
 const getAllSolicitudes = async (req, res) => {
@@ -26,7 +26,7 @@ const getSolicitudById = async (req, res) => {
   try {
     const solicitud = await SolicitudesService.getSolicitudById(req.params.id);
     if (!solicitud) {
-      res.status(404).json({ message: 'Solicitud no encontrada' });
+      res.status(404).json({ message: "Solicitud no encontrada" });
     } else {
       res.status(200).json(solicitud);
     }
@@ -38,12 +38,20 @@ const getSolicitudById = async (req, res) => {
 // Actualizar una solicitud por ID
 const updateSolicitud = async (req, res) => {
   try {
-    const solicitud = await SolicitudesService.updateSolicitud(req.params.id, req.body);
+    // Obtener el nuevo estado del cuerpo de la solicitud (req.body)
+    const nuevoEstado = req.body.estado;
+
+    // Llamar a updateSolicitud con el nuevo estado y otros datos de la solicitud
+    const solicitud = await SolicitudesService.updateSolicitud(
+      req.params.id,
+      nuevoEstado,
+      req.body
+    );
+
     if (!solicitud) {
-      res.status(404).json({ message: 'Solicitud no encontrada' });
+      res.status(404).json({ message: "Solicitud no encontrada" });
     } else {
       res.status(200).json(solicitud);
-      
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -55,9 +63,9 @@ const deleteSolicitud = async (req, res) => {
   try {
     const solicitud = await SolicitudesService.deleteSolicitud(req.params.id);
     if (!solicitud) {
-      res.status(404).json({ message: 'Solicitud no encontrada' });
+      res.status(404).json({ message: "Solicitud no encontrada" });
     } else {
-      res.status(200).json({ message: 'Solicitud eliminada correctamente' });
+      res.status(200).json({ message: "Solicitud eliminada correctamente" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
