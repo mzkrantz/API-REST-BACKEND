@@ -1,5 +1,9 @@
 const express = require("express");
-const { sendEmail, sendPasswordResetEmail, resetPassword } = require("../../controllers/mail.controller");
+const {
+  sendEmail,
+  sendPasswordResetEmail,
+  resetPassword,
+} = require("../../controllers/mail.controller");
 const router = express.Router();
 
 // Ruta para enviar correos

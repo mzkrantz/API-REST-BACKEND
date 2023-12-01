@@ -38,10 +38,8 @@ const getSolicitudById = async (req, res) => {
 // Actualizar una solicitud por ID
 const updateSolicitud = async (req, res) => {
   try {
-    // Obtener el nuevo estado del cuerpo de la solicitud (req.body)
     const nuevoEstado = req.body.estado;
 
-    // Llamar a updateSolicitud con el nuevo estado y otros datos de la solicitud
     const solicitud = await SolicitudesService.updateSolicitud(
       req.params.id,
       nuevoEstado,

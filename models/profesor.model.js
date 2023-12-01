@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate');
+const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate");
 
 const ProfesorSchema = new mongoose.Schema({
   image: { type: String },
@@ -13,11 +13,11 @@ const ProfesorSchema = new mongoose.Schema({
   description: { type: String },
   background: { type: String },
   courseId: { type: String },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 ProfesorSchema.plugin(mongoosePaginate);
 
-const Profesor = mongoose.model('Profesor', ProfesorSchema, 'profesores');
+const Profesor = mongoose.model("Profesor", ProfesorSchema, "profesores");
 
 module.exports = Profesor;

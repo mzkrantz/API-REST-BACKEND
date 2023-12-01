@@ -63,8 +63,10 @@ const resetPassword = async (req, res) => {
     }
 
     // Validar si el token de reinicio coincide con el usuario
-    if (user.resetToken !== resetToken ) {
-      return res.status(400).json({ error: "Token de reinicio inválido o expirado" });
+    if (user.resetToken !== resetToken) {
+      return res
+        .status(400)
+        .json({ error: "Token de reinicio inválido o expirado" });
     }
 
     // Actualizar la contraseña del usuario
@@ -76,8 +78,6 @@ const resetPassword = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-
 
 module.exports = {
   sendEmail,

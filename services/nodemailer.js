@@ -12,7 +12,7 @@ const mailSender = async (to, subject, text) => {
   });
 
   const mailOptions = {
-    from: "eduwizard2023@outlook.com", // Cambia esto al remitente que desees
+    from: "eduwizard2023@outlook.com",
     to: to,
     subject: subject,
     text: text,
