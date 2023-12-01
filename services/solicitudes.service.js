@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Definir el esquema de la solicitud
 const solicitudSchema = new mongoose.Schema({
   nombre: {
     type: String,
@@ -40,25 +39,20 @@ const solicitudSchema = new mongoose.Schema({
   },
 });
 
-// Crear el modelo de la solicitud
 const Solicitud = mongoose.model("Solicitudes", solicitudSchema);
 
-// Obtener todas las solicitudes
 const getAllSolicitudes = async () => {
   return await Solicitud.find();
 };
 
-// Crear una nueva solicitud
 const createSolicitud = async (solicitudData) => {
   return await Solicitud.create(solicitudData);
 };
 
-// Obtener una solicitud por ID
 const getSolicitudById = async (profesorId) => {
   return await Solicitud.find({ profesor: profesorId });
 };
 
-// Actualizar una solicitud por ID
 const updateSolicitud = async (id, nuevoEstado, solicitudData) => {
   const updatedSolicitud = await Solicitud.findByIdAndUpdate(id, {
     estado: nuevoEstado,
@@ -67,7 +61,6 @@ const updateSolicitud = async (id, nuevoEstado, solicitudData) => {
   return updatedSolicitud;
 };
 
-// Eliminar una solicitud por ID
 const deleteSolicitud = async (id) => {
   return await Solicitud.findByIdAndDelete(id);
 };

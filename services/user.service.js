@@ -50,7 +50,7 @@ exports.createUser = async function (user) {
       },
       process.env.SECRET,
       {
-        expiresIn: 86400, // expires in 24 hours
+        expiresIn: 86400, //24 horas
       }
     );
     return token;
@@ -95,9 +95,7 @@ exports.deleteUser = async function (id) {
 };
 
 exports.loginUser = async function (user) {
-  // Creating a new Mongoose Object by using the new keyword
   try {
-    // Find the User
     console.log("login:", user);
     var _details = await User.findOne({
       email: user.email,
@@ -111,12 +109,11 @@ exports.loginUser = async function (user) {
       },
       process.env.SECRET,
       {
-        expiresIn: 86400, // expires in 24 hours
+        expiresIn: 86400, //24 horas
       }
     );
     return { token: token, user: _details };
   } catch (e) {
-    // return a Error message describing the reason
     throw Error("Error while Login User");
   }
 };
@@ -167,4 +164,3 @@ exports.actualizarContraseña = async function (userId, newPassword) {
     throw Error("Error al actualizar la contraseña");
   }
 };
-

@@ -1,37 +1,30 @@
-const Profesor = require('../models/profesor.model.js');
-const bcrypt = require('bcryptjs');
+const Profesor = require("../models/profesor.model.js");
+const bcrypt = require("bcryptjs");
 
-// Obtener la lista de profesores paginada
 exports.obtenerProfesores = async function (query, page, limit) {
   try {
     var profesores = await Profesor.findOne({ email: query.email });
     return profesores;
   } catch (e) {
-    throw Error('Error al obtener los profesores');
+    throw Error("Error al obtener los profesores");
   }
 };
 
 exports.obtenerTodosProfesores = async function (query, page, limit) {
-  // Configuración de opciones para la paginación de Mongoose
   var options = {
     page,
     limit,
   };
-  // Intenta manejar la promesa esperada para manejar errores
   try {
     var profesores = await Profesor.paginate(query, options);
-    // Devuelve la lista de cursos retornada por la promesa de Mongoose
     return profesores;
   } catch (e) {
-    // Devuelve un mensaje de error describiendo la razón
     console.log("Error en servicios", e);
     throw Error("Error al paginar profesores");
   }
 };
 
-// Crear un nuevo profesor
 exports.crearProfesor = async function (profesor) {
-  
   var nuevoProfesor = new Profesor({
     image: profesor.image,
     name: profesor.name,
@@ -52,11 +45,10 @@ exports.crearProfesor = async function (profesor) {
     return profesorCreado;
   } catch (e) {
     console.log(e);
-    throw Error('Error al crear un nuevo profesor');
+    throw Error("Error al crear un nuevo profesor");
   }
 };
 
-// Actualizar un profesor
 exports.actualizarProfesor = async function (profesorData) {
   var email = { email: profesorData.email };
 
@@ -70,12 +62,12 @@ exports.actualizarProfesor = async function (profesorData) {
     throw new Error("Profesor no encontrado");
   }
 
-  // Verificar si cada campo existe antes de establecerlo
   if (profesorData.name) oldProfesor.name = profesorData.name;
   if (profesorData.subject) oldProfesor.subject = profesorData.subject;
   if (profesorData.age) oldProfesor.age = profesorData.age;
   if (profesorData.phone) oldProfesor.phone = profesorData.phone;
-  if (profesorData.description) oldProfesor.description = profesorData.description;
+  if (profesorData.description)
+    oldProfesor.description = profesorData.description;
   if (profesorData.background) oldProfesor.background = profesorData.background;
 
   try {
@@ -86,7 +78,6 @@ exports.actualizarProfesor = async function (profesorData) {
   }
 };
 
-// Eliminar un profesor
 exports.eliminarProfesor = async function (req, res, next) {
   var id = req.body.id;
 
@@ -94,12 +85,18 @@ exports.eliminarProfesor = async function (req, res, next) {
     var eliminado = await Profesor.remove({ _id: id });
 
     if (eliminado.n === 0 && eliminado.ok === 1) {
-      return res.status(404).json({ status: 404, message: "El profesor no pudo ser encontrado" });
+      return res
+        .status(404)
+        .json({ status: 404, message: "El profesor no pudo ser encontrado" });
     }
 
-    return res.status(200).json({ status: 200, message: "Profesor eliminado exitosamente" });
+    return res
+      .status(200)
+      .json({ status: 200, message: "Profesor eliminado exitosamente" });
   } catch (e) {
-    return res.status(400).json({ status: 400, message: "Error al eliminar el profesor" });
+    return res
+      .status(400)
+      .json({ status: 400, message: "Error al eliminar el profesor" });
   }
 };
 

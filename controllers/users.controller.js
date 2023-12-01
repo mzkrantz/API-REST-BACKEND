@@ -3,30 +3,24 @@ var ProfesorService = require("../services/profesor.service");
 var jwt = require("jsonwebtoken");
 const cloudinary = require("../services/cloudinary");
 
-// Saving the context of this module inside the _the variable
 _this = this;
 
-// Async Controller function to get the To do List
 exports.createUser = async function (req, res, next) {
   try {
-    // Verificar si el correo electrónico ya existe
     const emailExists = await UserService.verificarEmailExistente(
       req.body.email
     );
     if (emailExists) {
-      return res
-        .status(400)
-        .json({
-          status: 400,
-          message: "El correo electrónico ya existe en la base de datos",
-        });
+      return res.status(400).json({
+        status: 400,
+        message: "El correo electrónico ya existe en la base de datos",
+      });
     }
 
     // Subir la imagen a Cloudinary
     const fileBuffer = req.file.buffer;
     const urlImg = await cloudinary.uploadImage(fileBuffer);
 
-    // Crear un nuevo usuario
     var newUser = {
       image: urlImg,
       nombre: req.body.nombre,
@@ -34,8 +28,8 @@ exports.createUser = async function (req, res, next) {
       email: req.body.email,
       telefono: req.body.telefono,
       password: req.body.password,
-      resetToken:"",
-      resetTokenExpires:"",
+      resetToken: "",
+      resetTokenExpires: "",
     };
 
     var createdUser = await UserService.createUser(newUser);
@@ -163,21 +157,18 @@ exports.removeUser = async function (req, res, next) {
 };
 
 exports.loginUser = async function (req, res, next) {
-  // Req.Body contains the form submit values.
   console.log("body", req.body);
   var User = {
     email: req.body.email,
     password: req.body.password,
   };
   try {
-    // Calling the Service function with the new object from the Request Body
     var loginUser = await UserService.loginUser(User);
     if (loginUser === 0)
       return res.status(400).json({ message: "Error en la contraseña" });
     else
       return res.status(201).json({ loginUser, message: "Succesfully login" });
   } catch (e) {
-    //Return an Error Response Message with Code and the Error Message.
     return res
       .status(400)
       .json({ status: 400, message: "Invalid username or password" });
@@ -193,10 +184,13 @@ exports.getImagenUsuario = async function (req, res, next) {
       return res.status(404).json({ status: 404, message: "User not found" });
     }
 
-    // Aquí puedes implementar la lógica para obtener la imagen del usuario
-    // utilizando el servicio de cloudinary u otro método de tu elección
-
-    return res.status(200).json({ status: 200, message: "User image retrieved successfully", image: user.image });
+    return res
+      .status(200)
+      .json({
+        status: 200,
+        message: "User image retrieved successfully",
+        image: user.image,
+      });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }

@@ -26,20 +26,16 @@ exports.createCurso = async function (req, res, next) {
     const urlImg = await cloudinary.uploadImage(fileBuffer);
     let subjectsArray = req.body.subjects;
 
-    // Intenta parsear el string JSON. Si tiene éxito, asigna el resultado a subjectsArray.
     try {
       subjectsArray = JSON.parse(subjectsArray);
     } catch (error) {
-      // Si hay un error al parsear, asume que ya es un array o realiza otra lógica según sea necesario.
       console.error("Error parsing subjects:", error);
     }
 
-    // Asegúrate de que subjectsArray sea un array de strings.
     if (!Array.isArray(subjectsArray)) {
-      // Si no es un array, intenta dividir el string por comas y eliminar espacios en blanco.
       subjectsArray = subjectsArray.split(",").map((subject) => subject.trim());
     }
-    
+
     const cursoData = {
       image: urlImg,
       title: req.body.title,
@@ -76,7 +72,7 @@ exports.getCursosByProfesorId = async function (req, res, next) {
     const cursos = await CursosService.getCursosByProfesorId(profesorId);
     return res.status(200).json(cursos);
   } catch (e) {
-    console.error(e); // Imprime el error original
+    console.error(e);
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
@@ -116,7 +112,6 @@ exports.deleteCurso = async function (req, res, next) {
 // Actualizar la imagen del curso por ID
 
 exports.updateCursoImage = async function (req, res, next) {
-
   const cursoId = req.params.id;
   const fileBuffer = req.file.buffer;
 
@@ -125,10 +120,7 @@ exports.updateCursoImage = async function (req, res, next) {
     const result = await cloudinary.uploadImage(fileBuffer);
 
     // Actualizar la URL de la imagen en la base de datos
-    const updatedCurso = await CursosService.updateCursoImage(
-      cursoId,
-      result
-    );
+    const updatedCurso = await CursosService.updateCursoImage(cursoId, result);
 
     return res.status(200).json({
       status: 200,
@@ -139,4 +131,3 @@ exports.updateCursoImage = async function (req, res, next) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
-

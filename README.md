@@ -12,6 +12,8 @@ Petcoff, Nicolas Emanuel - LU 1100533
 
 ## Documento Consolidado
 
+  Consolidado de todas las presentaciones 
+  
 - **Documento general del proyecto** [(`Google Drive`)](https://docs.google.com/document/d/1Av_jVUQqV9iDt6eIE_2NpdZW2XfMHAeTKcCiFAtMcmg/edit?usp=sharing)
 
 
@@ -19,9 +21,12 @@ Petcoff, Nicolas Emanuel - LU 1100533
 
 - **Requerimientos** [(`Google Drive`)](https://docs.google.com/document/d/1DmThAggf-TVJIIcWhQuvn5CsdusAVou_LZKB6Rfx4uA/edit?usp=sharing)
 - **Documentacion Endpoints** [(`Postman`)](https://documenter.getpostman.com/view/30808697/2s9YeHbB3g#8df2df0a-7327-44e0-8224-dfc3476400e6)
+- **Mockups** [(`Mockups`)](https://drive.google.com/file/d/1GWVU-9x_8yY5wjpXHfTshTa2wCpLh8c5/view?usp=sharing)
+- **Diagrama** [(`Imagen`)](https://drive.google.com/file/d/1a_yt9mAssyO8vS5wuzMEekzmAOClH6Su/view?usp=sharing)
+
 - **Repositorio FrontEnd** [(`Repositorio FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores)
 - **Repositorio BackEnd** [(`Repositorio Backend`)](https://github.com/nicopetcoff/API-REST-BACKEND)
-- **Diagrama** [(`Imagen`)](https://drive.google.com/file/d/1a_yt9mAssyO8vS5wuzMEekzmAOClH6Su/view?usp=sharing)
+
 - **Instrucciones FrontEnd** [(`Instrucciones FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores/blob/main/README.md)
 - **Instrucciones BackEnd** (`Instrucciones BackEnd`)  (Este Documento)
 
