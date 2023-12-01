@@ -5,7 +5,7 @@ _this = this;
 exports.obtenerProfesores = async function (req, res, next) {
   var query = {};
   var page = req.query.page ? req.query.page : 1;
-  var limit = req.query.limit ? req.query.limit : 10;
+  var limit = req.query.limit ? req.query.limit : 100;
 
   try {
     var profesores = await ProfesorService.obtenerProfesores({}, page, limit);
@@ -23,7 +23,7 @@ exports.obtenerProfesores = async function (req, res, next) {
 
 exports.obtenerTodosProfesores = async function (req, res, next) {
   const page = req.query.page ? req.query.page : 1;
-  const limit = req.query.limit ? req.query.limit : 10;
+  const limit = req.query.limit ? req.query.limit : 100;
 
   try {
     const profesores = await ProfesorService.obtenerTodosProfesores(
@@ -43,7 +43,7 @@ exports.obtenerTodosProfesores = async function (req, res, next) {
 
 exports.obtenerProfesoresPorCorreo = async function (req, res, next) {
   var page = req.query.page ? req.query.page : 1;
-  var limit = req.query.limit ? req.query.limit : 10;
+  var limit = req.query.limit ? req.query.limit : 100;
   let filtro = { email: req.headers.email };
 
   try {

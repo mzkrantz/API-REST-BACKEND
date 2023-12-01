@@ -4,7 +4,7 @@ const CursosService = require("../services/cursos.service");
 // Obtener todos los cursos
 exports.getAllCursos = async function (req, res, next) {
   const page = req.query.page ? req.query.page : 1;
-  const limit = req.query.limit ? req.query.limit : 10;
+  const limit = req.query.limit ? req.query.limit : 100;
 
   try {
     const cursos = await CursosService.getCursos({}, page, limit);
