@@ -10,14 +10,17 @@ Mendez Ferrin, Santiago Andres - LU 1138454
 
 Petcoff, Nicolas Emanuel - LU 1100533
 
-## Prerequisitos
-### `Node`
-### `Express`
-### `jsonwebtoken`
-### `mongoose`
 
+## Enlaces de Presentacion
 
-A continuación se enumeran las principales dependencias del backend de este proyecto:
+- **Requerimientos** [(`Google Drive`)](https://docs.google.com/document/d/1DmThAggf-TVJIIcWhQuvn5CsdusAVou_LZKB6Rfx4uA/edit?usp=sharing)
+- **Documentacion Endpoints** [(`Postman`)](https://documenter.getpostman.com/view/30808697/2s9YeHbB3g#8df2df0a-7327-44e0-8224-dfc3476400e6)
+- **Repositorio FrontEnd** [(`Repositorio FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores)
+- **Repositorio BackEnd** [(`Repositorio Backend`)](https://github.com/nicopetcoff/API-REST-BACKEND)
+- **Diagrama** [(`Imagen`)]()
+- **Instrucciones FrontEnd** [(`Instrucciones FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores/blob/main/README.md)
+- **Instrucciones BackEnd** (`Instrucciones BackEnd`)  (Este Documento)
+
 
 ## Instalación
 
@@ -42,6 +45,12 @@ Se conecta al puerto 4000
 Se conecta a MongoDB Database
 
 Es importante asegurarse de que todas las dependencias esten instaladas antes de iniciar el proyecto.
+
+
+## Importante
+Deben seguirse las instrucciones del FrontkEnd para que la aplicacion tenga interfaz visual y funcionalidades
+- **Repositorio BackEnd** [(`Repositorio FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores)
+- **Instrucciones** [(`Instrucciones FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores/blob/main/README.md)
 
 
 ## Dependencias
