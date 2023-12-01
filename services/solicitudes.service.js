@@ -1,48 +1,47 @@
-
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Definir el esquema de la solicitud
 const solicitudSchema = new mongoose.Schema({
-    nombre: {
-      type: String,
-      required: true
-    },
-    telefono: {
-      type: String,
-      required: true
-    },
-    mail: {
-      type: String,
-      required: true
-    },
-    horario: {
-      type: String,
-      required: true
-    },
-    mensaje: {
-      type: String,
-      required: true
-    },
-    curso: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true
-    },
-    cursoNombre: {
-      type: String,
-      required: true
-    },
-    profesor: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true
-    },
-    aceptado: {
-      type: Boolean,
-      default: false
-    }
-  });
+  nombre: {
+    type: String,
+    required: true,
+  },
+  telefono: {
+    type: String,
+    required: true,
+  },
+  mail: {
+    type: String,
+    required: true,
+  },
+  horario: {
+    type: String,
+    required: true,
+  },
+  mensaje: {
+    type: String,
+    required: true,
+  },
+  curso: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  cursoNombre: {
+    type: String,
+    required: true,
+  },
+  profesor: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  estado: {
+    type: Number,
+    default: 0, // 0 Pendiente, 1 Aceptado, 2 Finalizada, 3 Cancelada
+  },
+});
 
 // Crear el modelo de la solicitud
-const Solicitud = mongoose.model('Solicitudes', solicitudSchema);
+const Solicitud = mongoose.model("Solicitudes", solicitudSchema);
 
 // Obtener todas las solicitudes
 const getAllSolicitudes = async () => {
@@ -56,12 +55,16 @@ const createSolicitud = async (solicitudData) => {
 
 // Obtener una solicitud por ID
 const getSolicitudById = async (profesorId) => {
-  return await Solicitud.find({profesor: profesorId});
+  return await Solicitud.find({ profesor: profesorId });
 };
 
 // Actualizar una solicitud por ID
-const updateSolicitud = async (id, solicitudData) => {
-  return await Solicitud.findByIdAndUpdate(id, solicitudData, { new: true });
+const updateSolicitud = async (id, nuevoEstado, solicitudData) => {
+  const updatedSolicitud = await Solicitud.findByIdAndUpdate(id, {
+    estado: nuevoEstado,
+    ...solicitudData,
+  });
+  return updatedSolicitud;
 };
 
 // Eliminar una solicitud por ID
