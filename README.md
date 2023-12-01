@@ -10,6 +10,10 @@ Mendez Ferrin, Santiago Andres - LU 1138454
 
 Petcoff, Nicolas Emanuel - LU 1100533
 
+## Documento Consolidado
+
+- **Documento general del proyecto** [(`Google Drive`)](https://docs.google.com/document/d/1Av_jVUQqV9iDt6eIE_2NpdZW2XfMHAeTKcCiFAtMcmg/edit?usp=sharing)
+
 
 ## Enlaces de Presentacion
 
