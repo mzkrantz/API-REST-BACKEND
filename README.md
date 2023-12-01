@@ -52,7 +52,7 @@ Es importante asegurarse de que todas las dependencias esten instaladas antes de
 
 
 ## Importante
-Deben seguirse las instrucciones del FrontkEnd para que la aplicacion tenga interfaz visual y funcionalidades
+Deben seguirse las instrucciones del FrontEnd para que la aplicacion tenga interfaz visual y funcionalidades
 - **Repositorio BackEnd** [(`Repositorio FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores)
 - **Instrucciones** [(`Instrucciones FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores/blob/main/README.md)
 
