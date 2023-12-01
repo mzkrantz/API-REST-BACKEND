@@ -17,7 +17,7 @@ Petcoff, Nicolas Emanuel - LU 1100533
 - **Documentacion Endpoints** [(`Postman`)](https://documenter.getpostman.com/view/30808697/2s9YeHbB3g#8df2df0a-7327-44e0-8224-dfc3476400e6)
 - **Repositorio FrontEnd** [(`Repositorio FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores)
 - **Repositorio BackEnd** [(`Repositorio Backend`)](https://github.com/nicopetcoff/API-REST-BACKEND)
-- **Diagrama** [(`Imagen`)]()
+- **Diagrama** [(`Imagen`)](https://drive.google.com/file/d/1a_yt9mAssyO8vS5wuzMEekzmAOClH6Su/view?usp=sharing)
 - **Instrucciones FrontEnd** [(`Instrucciones FrontEnd`)](https://github.com/nicopetcoff/Market-Profesores/blob/main/README.md)
 - **Instrucciones BackEnd** (`Instrucciones BackEnd`)  (Este Documento)
 
